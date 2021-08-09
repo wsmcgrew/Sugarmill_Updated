@@ -1,0 +1,124 @@
+.wrapper {
+  display: flex;
+  background-color: #f0f0f0;
+  align-items: stretch;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+  background-image: linear-gradient(180deg, #1a4480 0%, #162e51 70%);
+  color: #fff;
+}
+
+.sidebar-header {
+  background: #162e51;
+}
+
+#sidebar.active {
+  min-width: 80px;
+  max-width: 80px;
+  text-align: center;
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+  padding-left: 30px;
+}
+
+#sidebar .sidebar-header strong {
+  display: none;
+  color: white;
+  margin-left: -5px;
+}
+
+#sidebar.active .sidebar-header h5 {
+  opacity: 0;
+  position: absolute;
+}
+#sidebar .sidebar-header h5 {
+  text-decoration: none;
+  opacity: 1;
+  color: #fff;
+  position: static;
+  width: 200px;
+}
+
+#sidebar a:hover {
+  text-decoration: none;
+}
+#sidebar.active .sidebar-header strong {
+  display: block;
+}
+
+#sidebar ul li a {
+  text-align: left;
+}
+
+#sidebar.active ul li a {
+  padding-left: 20px;
+  text-align: center;
+}
+#sidebar.active ul li span {
+  opacity: 0;
+  position: absolute;
+}
+
+#sidebar ul li span {
+  opacity: 1;
+  position: static;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+}
+
+#sidebar ul p {
+  color: #fff;
+  padding: 10px;
+}
+
+#sidebar ul li a.router-link-exact-active,
+ul li a.nav-link.active {
+  background-color: #005ea2;
+}
+
+.navbar-brand {
+  font-weight: 500;
+}
+
+#sidebar ul li a {
+  padding: 10px;
+  color: #fff;
+  padding-left: 30px;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+}
+#sidebar ul li a:hover {
+  color: #fff;
+  opacity: 1;
+  transition: all 0.3s;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -250px;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+}
+
+.navbar {
+  background-image: linear-gradient(180deg, #1a4480 0%, #162e51 70%);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff;
+}
+
+.navbar-dark .navbar-toggler {
+  border: none;
+}

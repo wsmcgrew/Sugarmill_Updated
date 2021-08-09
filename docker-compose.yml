@@ -1,0 +1,40 @@
+version: "3.8"
+
+## DEFINE SERVICES
+services:
+  ## Currently working
+  ## FRONTEND
+  web:
+    container_name: WEB
+    image: sugarmill/sugar-mill:dev
+    build: 
+      context: ./sugar-mill
+      target: Development
+    ports:
+      - 8080:8080
+    expose: 
+      - "8080"  
+    volumes:
+      - ./sugar-mill:/app
+
+   ## DATABASE
+  database:
+    container_name: DB
+    image: sugarmill/sugar-mill-db:dev
+    build:
+      context: ./sugar-mill-DB        
+    environment:
+      SA_PASSWORD: "MyDatabasePassword123"
+      ACCEPT_EULA: "Y"
+    expose: 
+      - "1433"
+    ports:
+      - 1433:1433
+    volumes: 
+      - SQL_Data:/var/opt/mssql/data
+    
+## DEFINE VOLUMES
+volumes: 
+  SQL_Data:
+    external: 
+      name: SB_SQL_DATA

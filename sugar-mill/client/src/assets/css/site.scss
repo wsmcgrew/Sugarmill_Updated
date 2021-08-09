@@ -1,0 +1,32 @@
+$theme-colors: (
+  "primary": #005ea2,
+  "danger": #d83933,
+  "info": #162e51,
+  "secondary": #71767a,
+);
+// Bootstrap and its default variables
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+// BootstrapVue and its default variables
+@import "../../../node_modules/bootstrap-vue/src/index.scss";
+
+.table .thead-dark th {
+  color: #fff;
+  background-color: #162e51;
+  border-color: #162e51;
+}
+
+.red {
+  background-color: red;
+}
+
+.light {
+  background-color: white;
+}
+
+.wrap-dropdown * {
+  white-space: normal;
+}
+
+.text-left {
+  text-align: left;
+}
