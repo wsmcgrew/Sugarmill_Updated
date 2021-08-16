@@ -8,9 +8,10 @@
     "start": "nodemon api.js"
   },
   "dependencies": {
-    "body-parser": "~1.0.1",
+    "body-parser": "^1.0.2",
     "cors": "2.8.1",
     "express": "~4.0.0",
+    "http-errors": "^1.8.0",
     "mssql": "^6.2.1"
   },
   "devDependencies": {

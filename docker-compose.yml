@@ -8,14 +8,27 @@ services:
     container_name: WEB
     image: sugarmill/sugar-mill:dev
     build: 
-      context: ./sugar-mill
+      context: ./sugar-mill/client
       target: Development
     ports:
       - 8080:8080
     expose: 
       - "8080"  
     volumes:
-      - ./sugar-mill:/app
+      - ./sugar-mill/client:/app
+
+  api:
+    container_name: api
+    image: sugarmill/sugar-mill:dev
+    build: 
+      context: ./sugar-mill/server
+      ## target: Development
+    ports:
+      - 5001:5001
+    expose: 
+      - "5001"  
+    volumes:
+      - ./sugar-mill/server:/app
 
    ## DATABASE
   database:

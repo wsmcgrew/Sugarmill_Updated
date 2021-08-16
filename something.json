@@ -1,0 +1,62 @@
+[
+    {
+        "EmailAddress": "jamesjameson@yahoo.com",
+        "Password": "cdsget",
+        "Users_Name": "Orange Juice",
+        "CompanyName": "Deep North Growers",
+        "GrowerId": [
+            2,
+            "2"
+        ],
+        "MillId": [
+            4,
+            4
+        ],
+        "MillCr": 400,
+        "GrowerName": "12345",
+        "TractId": "Apple Jui",
+        "TractName": "MackTruck",
+        "HaulerId": "Big mack",
+        "HaulerName": "HaulerId",
+        "TruckId": "LilSizzy",
+        "TrailerId": "abc 123",
+        "GrossWt": "4443kl",
+        "TareWt": "388lbs",
+        "NetWt": "333lbs",
+        "GrossTime": "2021-08-09T20:48:55.077Z",
+        "TareTime": "2021-08-09T20:48:55.077Z",
+        "OverWeight": true,
+        "id": 24,
+        "Mill_Name": "that one fake sugar "
+    },
+    {
+        "EmailAddress": "jamesjameson@yahoo.com",
+        "Password": "cdsget",
+        "Users_Name": "Orange Juice",
+        "CompanyName": "Deep North Growers",
+        "GrowerId": [
+            2,
+            "2"
+        ],
+        "MillId": [
+            5,
+            5
+        ],
+        "MillCr": 400,
+        "GrowerName": "12345",
+        "TractId": "Apple Jui",
+        "TractName": "MackTruck",
+        "HaulerId": "Big mack",
+        "HaulerName": "HaulerId",
+        "TruckId": "James",
+        "TrailerId": "abc 123",
+        "GrossWt": "4443kl",
+        "TareWt": "388lbs",
+        "NetWt": "333lbs",
+        "GrossTime": "2021-08-09T20:48:55.083Z",
+        "TareTime": "2021-08-09T20:48:55.083Z",
+        "OverWeight": true,
+        "id": 25,
+        "Mill_Name": "chocolate "
+    }
+]

@@ -1,5 +1,4 @@
-//var dboperations  = require('./dboperations');
-var Grower = require('./Growers');
+let Grower = require('./models/Growers')
 const dboperations = require('./dboperations');
 
 var express = require('express');
@@ -24,27 +23,15 @@ router.route('/Growers').get((request,response)=>{
     dboperations.getGrowers().then(result => {
        response.json(result[0]);
     })
+});
 
-})
+router.route('/Growers/:growerId').get((request,response)=>{
 
-router.route('/orders/:id').get((request,response)=>{
-
-    dboperations.getOrder(request.params.id).then(result => {
+    dboperations.getGrowerCaneLoads(request.params.growerId).then(result => {
        response.json(result[0]);
     })
 
-})
-
-router.route('/orders').post((request,response)=>{
-
-    let order = {...request.body}
-
-    dboperations.addOrder(order).then(result => {
-       response.status(201).json(result);
-    })
-
-})
-
+});
 
 
 

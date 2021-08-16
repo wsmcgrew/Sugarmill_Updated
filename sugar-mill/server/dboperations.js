@@ -13,6 +13,30 @@ async function getGrowers() {
     }
 }
 
+async function getGrowerCaneLoads(growerId) {
+    try {
+        let pool = await sql.connect(config);
+        let products = await pool.request().query(`select *
+        FROM Growers a JOIN Cane_Loads b on a.GrowerId = ${growerId} and  b.GrowerId = ${growerId} INNER join Mills c on c.MillId = b.MillId`);
+        return products.recordsets;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+async function getCompanyName(growerId) {
+    try {
+        let pool = await sql.connect(config);
+        let products = await pool.request().query(`select CompanyName FROM Growers WHERE GrowerId = ${growerId}`);
+        return products.recordsets;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+/*
 async function getOrder(orderId) {
     try {
         let pool = await sql.connect(config);
@@ -44,16 +68,10 @@ async function addOrder(order) {
     catch (err) {
         console.log(err);
     }
-
-}
-
-
-
-
-
+}*/
 
 module.exports = {
     getGrowers: getGrowers,
-    getOrder : getOrder,
-    addOrder : addOrder
+    getGrowerCaneLoads: getGrowerCaneLoads,
+    getCompanyName: getCompanyName
 }
