@@ -4,10 +4,10 @@
       <div class="card-body">
           <strong class="card-title">
           <b-icon-person-circle class="mr-2"></b-icon-person-circle>
-          <!--//crude, implied all items of array is same names -->
-          Grower Name: <h1>{{ millList[0].GrowerName }}</h1> CompanyName: <h1>{{ millList[0].CompanyName }} </h1>
+          <!--//crude, implied all items of array is same names 
+          Grower Name: <h1>{{ millList[0].GrowerName }}</h1> CompanyName: <h1>{{ millList[0].CompanyName }} </h1>-->
           </strong>
-        <div class="row">
+        <div class="row"> <!--:v-for="mill.Mill_Name in millList"> -->
           <b-col>
               <b-table
                 striped
@@ -20,40 +20,44 @@
                 :items="millList"
                 :fields="fields"
               >
+              <template #cell(actions)="row">
+                <b-button size="sm" @click="showTract(row.item, row.index, $event.target)" variant="primary">
+                  <b-icon-plus></b-icon-plus>
+                  Process
+                </b-button>
+              </template>
               </b-table>
           </b-col>
         </div> <!-- end div for load seperation -->
       </div>
     </div> <!-- end class card -->
+    <change-tract :tractData="tractData"></change-tract>
   </div>
 </template>
 
 <script>
+import ChangeTract from "../components/ChangeTract.vue"
 import { mapActions, mapState } from "vuex";
 
 export default {
   Name: "Home",
-  components: {},
+  components: {
+    ChangeTract
+  },
   data() {
     return {
+      newTractName: "",
+      tractData: {},
      fields: [
        { key: "Mill_Name", label: "Mill Name" },      
        { key: "GrossTime", label: "Gross Time" },
        { key: "Mill_Name", label: "Mill Name" },
-       //{ key: "GrowerName", label: "Grower Name" },
        { key: "HaulerName", label: "Driver Name" },
-      // { key: "MillCr" },
        { key: "NetWt", label: "Total weight" },
        { key: "OverWeight" },
        { key: "GrossWt", lable: "Load weight"},
-      // { key: "TareTime" },
-      // { key: "TareWt" },
-      // { key: "TruckId" },
-       { key: "EmailAddress:", label: "Email Address"},
-       { key: "TractName" },
-       //{ key: "TrailerId" },
-       //{ key: "TruckId" },
-       //{ key: "Users_Name" },
+       { key: "TractName", label: "Current Tract" },
+       { key: "actions", label: "Move Tract" }
      ]
     }
   },
@@ -62,9 +66,16 @@ export default {
   },
   mounted() {
     this.getMillList();
+    this.getTractsList();
   },
   methods: {
     ...mapActions("home", ["getMillList"]),
+
+    showTract(item) {
+      this.tractData = item;
+      this.editMode = false;
+      this.$bvModal.show("move-land-tract");
+    },
 
     async getList() {
       try {
