@@ -17,19 +17,6 @@ services:
     volumes:
       - ./sugar-mill/client:/app
 
-  api:
-    container_name: api
-    image: sugarmill/sugar-mill:dev
-    build: 
-      context: ./sugar-mill/server
-      ## target: Development
-    ports:
-      - 5001:5001
-    expose: 
-      - "5001"  
-    volumes:
-      - ./sugar-mill/server:/app
-
    ## DATABASE
   database:
     container_name: DB

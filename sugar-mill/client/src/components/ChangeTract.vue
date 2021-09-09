@@ -4,9 +4,9 @@
       id="move-land-tract"
       size="lg"
       title="Move Tract"
+      @ok="handleOk"
       @show="resetModal"
       @hidden="resetModal"
-      @ok="handleOk"
       ok-title="Save"
     >
       <form ref="form" @submit.stop.prevent="handleSubmit">
@@ -21,12 +21,11 @@
             <!-- tractList should be computed property -->
             <b-form-select
               :options="tractsList"
-              required
               value-field="TractName"
-              v-modal="selectedTract"
+              required
+              v-model="selectedTract"
               text-field="TractName"
             ></b-form-select>
-            {{ this.selectedTract }}
             <b-form-invalid-feedback id="input-1-live-feedback">
               This is a required field</b-form-invalid-feedback
             >
@@ -45,7 +44,13 @@ export default {
   Name: "ChangeTract",
   data() {
     return {
-      selectedTract: {}
+      selectedTract: {},
+      tractObj: [
+        { name: "id" },
+        { name: "MillId" },
+        { name: "TractId" },
+        { name: "TractName" }
+      ]
     };
   },
   props: {
@@ -77,11 +82,6 @@ export default {
       this.handleSubmit();
     },
     async handleSubmit() {
-      console.log(this.selectedTract);
-      this.$nextTick(() => {
-        this.$bvModal.hide("move-land-tract");
-      });
-
       try {
         await axios.put(
           "http://localhost:5001/Tracts" +
@@ -89,7 +89,12 @@ export default {
             "&LastUpdatedBy=jbwentworth" +
             "&IsAltered=1"
         );
+
+        this.$nextTick(() => {
+          this.$bvModal.hide("move-land-tract");
+        });
       } catch {
+        console.log(this.selectedTract);
         console.log("Error moving tract");
       }
     },

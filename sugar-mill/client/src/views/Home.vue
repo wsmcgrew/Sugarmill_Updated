@@ -8,7 +8,6 @@
           Grower Name: <h1>{{ millList[0].GrowerName }}</h1> CompanyName: <h1>{{ millList[0].CompanyName }} </h1>-->
         </strong>
         <div class="row">
-          <!--:v-for="mill.Mill_Name in millList"> -->
           <b-col>
             <b-table
               striped

@@ -33,6 +33,22 @@ router.route('/Growers/:growerId').get((request,response)=>{
 
 });
 
+router.route('/Tracts').get((request,response)=>{
+   dboperations.getTracts().then(result => {
+      response.json(result[0]);
+   })
+});
+
+router.route('/Tracts/:id/:LastUpdatedBy/:TractId/:TractName').post((requst, response) => {
+   let id = parseInt(id);
+   let LastUpdatedBy = LastUpdatedBy;
+   let TractId = TractId;
+   let TractName = TractName;
+   dboperations.changeTract(id, LastUpdatedBy, TractId, TractName).then(result => {
+      response.json(result[0]);
+   })
+})
+
 
 
 var port = process.env.PORT || 5001;
