@@ -30,7 +30,6 @@ router.route('/Growers/:growerId').get((request,response)=>{
     dboperations.getGrowerCaneLoads(request.params.growerId).then(result => {
        response.json(result[0]);
     })
-
 });
 
 router.route('/Tracts').get((request,response)=>{
@@ -39,15 +38,16 @@ router.route('/Tracts').get((request,response)=>{
    })
 });
 
-router.route('/Tracts/:id/:LastUpdatedBy/:TractId/:TractName').post((requst, response) => {
-   let id = parseInt(id);
-   let LastUpdatedBy = LastUpdatedBy;
-   let TractId = TractId;
-   let TractName = TractName;
+router.route('/Tracts/:id/:LastUpdatedBy/:TractId/:TractName').put((request, response) => {
+   let id = request.params.id
+   let LastUpdatedBy = request.params.LastUpdatedBy;
+   let TractId = request.params.TractId
+   let TractName = request.params.TractName
+   //console.log(request.params);
    dboperations.changeTract(id, LastUpdatedBy, TractId, TractName).then(result => {
       response.json(result[0]);
    })
-})
+});
 
 
 
