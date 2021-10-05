@@ -19,11 +19,6 @@ async function getGrowers() {
                 })
             });
         })
-          /*
-        let pool = await sql.connect(config);
-        let products = await pool.request().query("select * from Cane_Loads a JOIN Mills b ON b.MillId = a.MillId");
-        return products.recordsets;
-        */
     }
     catch (error) {
         console.log(error);
@@ -75,6 +70,19 @@ async function changeTract(id, LastUpdatedBy, TractId, TractName) {
     catch (error) {
         console.log(error);
     } 
+}
+
+
+async function getUsers(id, LastUpdatedBy, TractId, TractName) {
+    try {
+        let pool = await sql.connect(config);
+        let products = await pool.request().query("select * from users");
+        return products.recordsets;
+    }
+
+    catch (error) {
+        console.log(error);
+    }
 }
 
 

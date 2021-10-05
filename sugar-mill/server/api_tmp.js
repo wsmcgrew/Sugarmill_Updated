@@ -94,21 +94,22 @@ const authMiddleware = (req, res, next) => {
 // -----------------begin authentication
 // login
 app.post("/api/login", (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-      if (err) {
-          return next(err);
-      }
-      
-      if (!user) {
-          return res.status(400).send([user, "Cannot log in", info])
-      }
-
-      req.login(user, (err) => {
-          res.send("Logged in")
-      })
-  })(req, res, next)
-})
-
+   passport.authenticate("local", (err, user, info) => {
+     if (err) {
+       console.log(err);
+       return next(err);
+     }
+ 
+     if (user) {
+       return res.status(400).send([user, "Cannot log in ", info]);
+     }
+ 
+     //console.log(req.session);
+     req.login(user, err => {
+       res.send("Logged in * backend** ");
+     });
+   })(req, res, next);
+ });
  //logout
  app.get("/api/logout", function(req, res) {
    req.logout();
@@ -119,6 +120,7 @@ app.post("/api/login", (req, res, next) => {
  });
 // authentication
  app.get("/api/user", authMiddleware, (req, res) => {
+   console.log()
    
    let user = users.find(user => {
      //console.log(req.session.passport.user);
@@ -126,7 +128,7 @@ app.post("/api/login", (req, res, next) => {
    });
  
    //console.log(req)
-   //console.log([user, req.session])
+   console.log([user, req.sessionID])
  
    res.send({ user: user })
  })
