@@ -13,7 +13,7 @@
         <div class="row">
           <div class="col">
             Mill Name: {{ tractData.Mill_Name }} CurrentTract:
-            {{ tractData.TractName }}
+            {{ tractData.TractName }} Tract Id: {{ tractData.id }}
           </div>
         </div>
         <div class="col">
@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       selectedTract: {},
+      selectedTractObj: [{ tractId: "TractId" }, { tractName: "TractName" }],
       tractObj: [
         { name: "id" },
         { name: "MillId" },
@@ -81,20 +82,35 @@ export default {
       bvModalEvt.preventDefault();
       this.handleSubmit();
     },
+    setTractIds() {
+      this.tractsList.forEach(a => {
+        if (a.TractName == this.selectedTract) {
+          this.selectedTractObj.tractName = a.TractName;
+          this.selectedTractObj.tractId = a.TractId;
+        }
+      });
+    },
     async handleSubmit() {
+      this.setTractIds();
+
+      console.log(this.selectedTractObj.tractName);
+      console.log(this.selectedTractObj.tractId);
       try {
         await axios.put(
-          "http://localhost:5001/Tracts" +
-            this.selectedTract +
-            "&LastUpdatedBy=jbwentworth" +
-            "&IsAltered=1"
+          "http://localhost:5001/api/Tracts/" +
+            this.tractData.id +
+            "/" +
+            "jbwentworth" +
+            "/" +
+            this.selectedTractObj.tractId +
+            "/" +
+            this.selectedTractObj.tractName
         );
 
         this.$nextTick(() => {
           this.$bvModal.hide("move-land-tract");
         });
       } catch {
-        console.log(this.selectedTract);
         console.log("Error moving tract");
       }
     },

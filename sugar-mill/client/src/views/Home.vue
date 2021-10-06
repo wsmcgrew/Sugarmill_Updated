@@ -5,7 +5,10 @@
         <strong class="card-title">
           <b-icon-person-circle class="mr-2"></b-icon-person-circle>
           <!--//crude, implied all items of array is same names 
-          Grower Name: <h1>{{ millList[0].GrowerName }}</h1> CompanyName: <h1>{{ millList[0].CompanyName }} </h1>-->
+          Grower Name:
+          <h1>{{ millList[0].GrowerName }}</h1>
+          CompanyName:
+          <h1>{{ millList[0].CompanyName }}</h1>-->
         </strong>
         <div class="row">
           <b-col>
@@ -43,6 +46,8 @@
 
 <script>
 import ChangeTract from "../components/ChangeTract.vue";
+import router from "../router/index";
+import axios from "axios";
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -72,10 +77,24 @@ export default {
   },
   mounted() {
     this.getMillList();
+    this.getUserData();
   },
   methods: {
     ...mapActions("home", ["getMillList"]),
 
+    getUserData: function() {
+      let self = this;
+      axios
+        .get("http://localhost:5001/api/user")
+        .then(response => {
+          console.log(response);
+          self.$set(this, "user", response.data.user);
+        })
+        .catch(errors => {
+          console.log(errors);
+          router.push("/");
+        });
+    },
     showTract(item) {
       this.tractData = item;
       this.editMode = false;
