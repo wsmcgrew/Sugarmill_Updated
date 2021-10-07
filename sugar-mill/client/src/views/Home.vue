@@ -46,8 +46,8 @@
 
 <script>
 import ChangeTract from "../components/ChangeTract.vue";
-import router from "../router/index";
-import axios from "axios";
+//import router from "../router/index";
+//import axios from "axios";
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -77,11 +77,11 @@ export default {
   },
   mounted() {
     this.getMillList();
-    this.getUserData();
+    //this.getUserData();
   },
   methods: {
     ...mapActions("home", ["getMillList"]),
-
+/*
     getUserData: function() {
       let self = this;
       axios
@@ -94,7 +94,7 @@ export default {
           console.log(errors);
           router.push("/");
         });
-    },
+    },*/
     showTract(item) {
       this.tractData = item;
       this.editMode = false;

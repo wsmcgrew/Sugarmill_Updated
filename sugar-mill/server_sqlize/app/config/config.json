@@ -1,0 +1,24 @@
+{
+ 
+    "development": {
+        "username": "sa",
+        "password": "MyDatabasePassword123",
+        "database": "Cane_Loads",
+        "host": "localhost",
+        "dialect": "mssql"
+    },
+    "test": {
+        "username": "",
+        "password": null,
+        "database": "",
+        "host": "",
+        "dialect": "mysql"
+    },
+    "production": {
+        "username": "",
+        "password": null,
+        "database": "",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+    }
+}
