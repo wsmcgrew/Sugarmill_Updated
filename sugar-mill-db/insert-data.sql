@@ -84,25 +84,23 @@ VALUEs (1, 'MackTruck', 'OleJenkinsPlace');
 insert into Tracts (MillId, TractId, TractName)
 VALUEs (3, 'MackTruck', 'Jamestown');
 insert into Tracts (MillId, TractId, TractName)
-VALUEs (2, 'MackTruck', 'CharlieKelly');
+VALUEs (2, 'someting', 'CharlieKelly');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (3, 'other', 'Morgan City');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (4, 'than', 'Houma');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (5, 'the', 'by the tree');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (1, 'shit', 'OleJenkinsPlace');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (3, 'aye', 'Jamestown');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (2, 'said', 'CharlieKelly');
 
 
 select * from Cane_Loads
 select * from Growers
 select * from Grower_Mill
 select * from Mills
-select * from Tracts
-
-select * from Cane_Loads where id = 15
-
-update Cane_Loads
-set IsAltered = 1, LastUpdatedBy = 'dbo', TractId = 'MackTruck', TractName = 'Houma'
-where id = 11
-
-update Cane_Loads
-set IsAltered = 0, LastUpdatedBy = null, TractId = 'mackie', TractName = 'FuknBich'
-            where id = 12
-
-update Cane_Loads
-            set IsAltered = 0, LastUpdatedBy = null, TractId = 'tractie', TractName = 'houma'
-            where id = 15
+select * from Tractss
