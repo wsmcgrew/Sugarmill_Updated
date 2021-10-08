@@ -9,8 +9,8 @@ module.exports = app => {
     // Retrieve all published Tutorials
     router.get("/published", cane_loads.findAllPublished);
   
-    // Retrieve a single Tutorial with id
-    router.get("/:id", cane_loads.findOne);
+    // Retrieve a single loads with id
+    router.get("/:id", cane_loads.findOneGrowersLoad);
   
     // Update a Tutorial with id
     router.put("/:id", cane_loads.update);

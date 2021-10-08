@@ -2,8 +2,8 @@ module.exports = function(sequelize, Sequelize) {
  
     var Mills = sequelize.define('Mills', {
 
-        MillId: {
-            autoIncrement: true,
+        id: {
+            //autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
         },

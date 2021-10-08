@@ -27,4 +27,7 @@ db.mills = require("./Mills.model")(sequelize, Sequelize);
 db.tracts = require("./Tracts.models")(sequelize, Sequelize);
 db.cane_loads = require("./Cane_Loads.model")(sequelize, Sequelize);
 
+db.mills.hasMany(db.cane_loads)
+db.cane_loads.belongsTo(db.mills)
+
 module.exports = db;

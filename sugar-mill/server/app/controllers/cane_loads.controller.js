@@ -1,5 +1,7 @@
+const { sequelize } = require("../models");
 const db = require("../models");
 const cane_loads = db.cane_loads;
+const mills = db.mills;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -7,11 +9,11 @@ exports.create = (req, res) => {
   
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all loads from the database.
 exports.findAll = (req, res) => {
     console.log(" Within the controller");
   
-    cane_loads.findAll({})
+    cane_loads.findAll({ include: mills })
     .then(folks => {
       res.status(200).json({
         data: folks
@@ -20,8 +22,18 @@ exports.findAll = (req, res) => {
 };
 
 // Find a single Tutorial with an id
-exports.findOne = (req, res) => {
-  
+exports.findOneGrowersLoad = (req, res) => {
+  console.log(" Within the controller");
+
+  let id = req.params.id
+  let condition = id ? { GrowerId: id } : null;
+
+  cane_loads.findAll({ where: condition })
+  .then(folks => {
+    res.status(200).json({
+      data: folks
+    })
+  });
 };
 
 // Update a Tutorial by the id in the request

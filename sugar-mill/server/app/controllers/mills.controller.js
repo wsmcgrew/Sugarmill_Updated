@@ -1,5 +1,5 @@
 const db = require("../models");
-const grower_mill = db.mills;
+const mills = db.mills;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -11,7 +11,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     console.log(" Within the controller");
   
-    grower_mill.findAll({ attributes: ["Mill_Name", "MillId"] })
+    mills.findAll({ attributes: ["Mill_Name", "MillId"] })
     .then(folks => {
       res.status(200).json({
         data: folks

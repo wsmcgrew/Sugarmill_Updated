@@ -72,11 +72,11 @@ module.exports = function(sequelize, Sequelize) {
         LastUpdatedBy: {
             type: Sequelize.STRING
         },
-        LoadId: {
+        id: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
-        }
+        },
     });
  
     return Cane_Loads;
