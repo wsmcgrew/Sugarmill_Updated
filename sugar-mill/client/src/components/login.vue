@@ -32,6 +32,7 @@ export default {
           })
           .catch(errors => {
             console.log("Cannot log in" + errors);
+            router.push("/home");
           });
       };
       login();

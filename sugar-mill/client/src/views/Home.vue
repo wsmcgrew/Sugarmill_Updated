@@ -60,7 +60,7 @@ export default {
       newTractName: "",
       tractData: {},
       fields: [
-        { key: "Mill_Name", label: "Mill Name" },
+        { key: "Mill.Mill_Name", label: "Mill Name"}, // { key: "Mill" [{ key: "Mill_Name" }], label: "Mill Name" },
         { key: "GrossTime", label: "Gross Time" },
         { key: "Mill_Name", label: "Mill Name" },
         { key: "HaulerName", label: "Driver Name" },
@@ -77,24 +77,10 @@ export default {
   },
   mounted() {
     this.getMillList();
-    //this.getUserData();
   },
   methods: {
     ...mapActions("home", ["getMillList"]),
-/*
-    getUserData: function() {
-      let self = this;
-      axios
-        .get("http://localhost:5001/api/user")
-        .then(response => {
-          console.log(response);
-          self.$set(this, "user", response.data.user);
-        })
-        .catch(errors => {
-          console.log(errors);
-          router.push("/");
-        });
-    },*/
+
     showTract(item) {
       this.tractData = item;
       this.editMode = false;

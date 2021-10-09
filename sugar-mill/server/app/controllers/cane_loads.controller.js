@@ -23,12 +23,12 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOneGrowersLoad = (req, res) => {
-  console.log(" Within the controller");
+  console.log("Req.body=" + req.body);
 
   let id = req.params.id
   let condition = id ? { GrowerId: id } : null;
 
-  cane_loads.findAll({ where: condition })
+  cane_loads.findAll({ where: condition, include: mills })
   .then(folks => {
     res.status(200).json({
       data: folks
@@ -37,8 +37,28 @@ exports.findOneGrowersLoad = (req, res) => {
 };
 
 // Update a Tutorial by the id in the request
-exports.update = (req, res) => {
+exports.updateTracts = (req, res) => {
+  const id = req.params.id;
   
+  cane_loads.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Tutorial was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update Load with id=${id}. Maybe load was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tracts with id=" + id
+      });
+    });
 };
 
 // Delete a Tutorial with the specified id in the request

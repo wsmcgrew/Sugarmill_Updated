@@ -11,7 +11,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     console.log(" Within the controller");
   
-    mills.findAll({ attributes: ["Mill_Name", "MillId"] })
+    mills.findAll({ attributes: ["Mill_Name", "id"] })
     .then(folks => {
       res.status(200).json({
         data: folks

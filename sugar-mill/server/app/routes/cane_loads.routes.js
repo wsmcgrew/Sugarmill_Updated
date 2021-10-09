@@ -13,7 +13,7 @@ module.exports = app => {
     router.get("/:id", cane_loads.findOneGrowersLoad);
   
     // Update a Tutorial with id
-    router.put("/:id", cane_loads.update);
+    router.put("/update/:id", cane_loads.updateTracts);
   
     // Delete a Tutorial with id
     router.delete("/:id", cane_loads.delete);

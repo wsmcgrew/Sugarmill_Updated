@@ -12,8 +12,10 @@
       <form ref="form" @submit.stop.prevent="handleSubmit">
         <div class="row">
           <div class="col">
-            Mill Name: {{ tractData.Mill_Name }} CurrentTract:
-            {{ tractData.TractName }} Tract Id: {{ tractData.id }}
+            <strong> Mill Name:</strong>{{ tractData.Mill }}
+            <strong> CurrentTract: </strong> {{ tractData.TractName }}
+            <strong> Id: </strong>{{ tractData.id }}
+            {{ tractData }}
           </div>
         </div>
         <div class="col">
@@ -91,20 +93,25 @@ export default {
       });
     },
     async handleSubmit() {
-      this.setTractIds();
-
+      //this.setTractIds();
+      this.selectedTractObj.tractName = this.selectedTract;
+      this.selectedTractObj.tractId = this.tractsList.find(
+        tr => (this.selectedTract = tr.TractName)
+      );
+      console.log(this.selectedTractObj.tractId.TractId);
       console.log(this.selectedTractObj.tractName);
-      console.log(this.selectedTractObj.tractId);
+
+      let body = {
+        lastUpdatedBy: "dbo",
+        TractId: this.selectedTractObj.tractId.TractId,
+        TractName: this.selectedTractObj.tractName,
+        isAltered: 1
+      };
+
       try {
         await axios.put(
-          "http://localhost:5001/api/Tracts/" +
-            this.tractData.id +
-            "/" +
-            "jbwentworth" +
-            "/" +
-            this.selectedTractObj.tractId +
-            "/" +
-            this.selectedTractObj.tractName
+          "http://localhost:5001/api/cane_loads/update/" + this.tractData.id,
+          body
         );
 
         this.$nextTick(() => {

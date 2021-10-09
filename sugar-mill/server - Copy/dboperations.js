@@ -53,7 +53,7 @@ async function getTracts() {
     }
 }
 
-// DONT FUCKING TOUCH SHANE! I WILL KICK YOUR ASS
+
 async function changeTract(id, LastUpdatedBy, TractId, TractName) {
     try {
         let pool = await sql.connect(config);
