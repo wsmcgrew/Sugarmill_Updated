@@ -21,8 +21,8 @@ insert into Growers (EmailAddress, password, Users_Name, CompanyName) VALUES ('N
 
 -- house keeping
 ALTER TABLE Mills DROP COLUMN MillId
-ALTER TABLE Mills ADD MillId INT UNIQUE IDENTITY(1,1) not NULL
-ALTER TABLE Mills ADD CONSTRAINT mill_pk PRIMARY KEY (MillId)
+ALTER TABLE Mills ADD id INT UNIQUE IDENTITY(1,1) not NULL
+ALTER TABLE Mills ADD CONSTRAINT mill_pk PRIMARY KEY (id)
 
 insert into Mills (Mill_Name) VALUES ('Sugar sugar =');
 insert into Mills (Mill_Name) VALUES ( 'Teabag suagr ');
@@ -46,8 +46,8 @@ alter table dbo.Cane_Loads ADD IsAltered BIT DEFAULT 'FALSE';
 ALTER TABLE dbo.Cane_Loads ADD LastUpdatedBy VARCHAR(50) NULL;
 
 ALTER TABLE Cane_Loads drop COLUMN UniqueId
-ALTER TABLE Cane_Loads ADD UniqueId INT IDENTITY(1,1) not NULL
-alter table Cane_Loads add CONSTRAINT UniqueId_pk PRIMARY KEY (UniqueId)
+ALTER TABLE Cane_Loads ADD LoadId INT IDENTITY(1,1) not NULL
+alter table Cane_Loads add CONSTRAINT LoadId_pk PRIMARY KEY (id)
 
 -- add a bit flag for altered. UserId (last updated by) [useraccount/unique id] 
 INSERT INTO Cane_Loads (MillId, MillCR, GrowerId, GrowerName, TractId, TractName, HaulerId, HaulerName, TruckId, TrailerId, GrossWt, TareWt, NetWt, GrossTime, TareTime, OverWeight)
@@ -98,9 +98,17 @@ VALUEs (3, 'aye', 'Jamestown');
 insert into Tracts (MillId, TractId, TractName)
 VALUEs (2, 'said', 'CharlieKelly');
 
+alter TABLE Cane_Loads
+add CONSTRAINT fk_millid FOREIGN KEY (MillId) REFERENCES Mills (id)
 
-select * from Cane_Loads
+
+select * from Cane_Loads where id = 5
 select * from Growers
 select * from Grower_Mill
 select * from Mills
-select * from Tractss
+select * from Tracts
+
+ALTER DATABASE [Cane_Loads] SET OFFLINE WITH ROLLBACK AFTER 25 SECONDS
+GO
+
+DROP DATABASE Cane_Loads [;]

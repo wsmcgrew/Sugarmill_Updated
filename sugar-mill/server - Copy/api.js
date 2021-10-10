@@ -132,7 +132,7 @@ app.post("/api/login", (req, res, next) => {
  })
 
  // serializeUser -- In this case we are just storing the userId
- // deserial lize user, find set id 
+ // deseriallize user, find set id 
  passport.serializeUser((user, done) => {
    done(null, user.id)
  });
