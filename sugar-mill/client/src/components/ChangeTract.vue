@@ -12,10 +12,9 @@
       <form ref="form" @submit.stop.prevent="handleSubmit">
         <div class="row">
           <div class="col">
-            <strong> Mill Name:</strong>{{ tractData.Mill }}
+            <strong> Mill Name: </strong>{{ tractData.Mill.Mill_Name }}
             <strong> CurrentTract: </strong> {{ tractData.TractName }}
             <strong> Id: </strong>{{ tractData.id }}
-            {{ tractData }}
           </div>
         </div>
         <div class="col">
@@ -83,14 +82,6 @@ export default {
     handleOk(bvModalEvt) {
       bvModalEvt.preventDefault();
       this.handleSubmit();
-    },
-    setTractIds() {
-      this.tractsList.forEach(a => {
-        if (a.TractName == this.selectedTract) {
-          this.selectedTractObj.tractName = a.TractName;
-          this.selectedTractObj.tractId = a.TractId;
-        }
-      });
     },
     async handleSubmit() {
       //this.setTractIds();

@@ -2,25 +2,22 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import home from "./home";
+import auth from "./auth";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    home
+    home,
+    auth
   },
 
   state: {
     menuItems: [
       {
         id: 1,
-        route: "/move-load",
-        label: "Move Load"
-      },
-      {
-        id: 2,
-        route: "/check-load",
-        label: "Check Load"
+        route: "/add-user",
+        label: "Add User"
       }
     ]
   },

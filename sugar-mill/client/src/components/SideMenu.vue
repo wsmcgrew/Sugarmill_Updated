@@ -10,14 +10,14 @@
       >
     </div>
 
-    <ul class="list-unstyled components" id="sideMenuList">
+    <!--<ul class="list-unstyled components" id="sideMenuList">
       <li v-for="item in items" :key="item.message" class="side-link">
         <router-link :to="item.route">
           <b-icon :icon="item.icon" class="mr-2"></b-icon>
           <span> {{ item.label }} </span>
         </router-link>
       </li>
-    </ul>
+    </ul>-->
   </nav>
 </template>
 

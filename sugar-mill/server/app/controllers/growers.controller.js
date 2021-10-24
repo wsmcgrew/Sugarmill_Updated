@@ -13,7 +13,6 @@ exports.findAllGrowers   = (req, res) => {
   
     Growers.findAll({ attributes: ["Users_Name", "GrowerId", "EmailAddress", "Password"] })
     .then(folks => {
-      console.log(folks);
       res.status(200).json({
         data: folks
       })
@@ -23,7 +22,6 @@ exports.findAllGrowers   = (req, res) => {
 
 // Find a single Grower with an id
 exports.findOne = (req, res) => {
-    console.log("find one was called")
     const id = req.params.id;
 
     Growers.findOne({where: { GrowerId: id } })

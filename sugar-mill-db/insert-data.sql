@@ -45,8 +45,6 @@ insert into Grower_Mill(MillId) VALUES (5)
 alter table dbo.Cane_Loads ADD IsAltered BIT DEFAULT 'FALSE';
 ALTER TABLE dbo.Cane_Loads ADD LastUpdatedBy VARCHAR(50) NULL;
 
-ALTER TABLE Cane_Loads drop COLUMN UniqueId
-ALTER TABLE Cane_Loads ADD LoadId INT IDENTITY(1,1) not NULL
 alter table Cane_Loads add CONSTRAINT LoadId_pk PRIMARY KEY (id)
 
 -- add a bit flag for altered. UserId (last updated by) [useraccount/unique id] 

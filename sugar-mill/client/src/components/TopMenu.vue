@@ -14,8 +14,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import router from "../router/index";
 
 export default {
   Name: "TopMenu",
@@ -26,9 +24,8 @@ export default {
   },
   methods: {
     logout() {
-      axios.get("http://localhost:5001/api/logout").then(() => {
-        router.push("/");
-      });
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/");
     }
   }
 };
