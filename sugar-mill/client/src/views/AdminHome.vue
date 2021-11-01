@@ -86,7 +86,7 @@ export default {
     showModal(item) {
       this.userdata = item;
       this.editMode = false;
-      this.$bvModal.show("move-land-tract");
+      this.$bvModal.show("add-user");
     }
   }
 };

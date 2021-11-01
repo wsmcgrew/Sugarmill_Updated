@@ -1,9 +1,9 @@
 <template>
   <div>
     <b-modal
-      id="move-land-tract"
+      id="add-user"
       size="lg"
-      title="Move Tract"
+      title="Add User"
       @ok="handleOk"
       @show="resetModal"
       @hidden="resetModal"
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import router from "../router";
+//import router from "../router";
 import axios from "axios";
 
 export default {
@@ -103,25 +103,33 @@ export default {
     async handleSubmit() {
       //event.preventDefault();
 
-      alert(JSON.stringify(this.form));
+      //alert(JSON.stringify(this.form));
 
       let body = {
         EmailAddress: this.form.EmailAddress,
         Users_Name: this.form.Users_Name,
         Password: this.form.Password,
         CompanyName: this.form.CompanyName,
-        roles: this.form.roles
+        roles: [this.form.roles]
       };
+      console.log(body);
 
       await axios
         .post("http://localhost:5001/api/auth/signup", body)
         .then(response => {
-          alert(`User ${this.form.Users_Name} was created`);
-          console.log("User created" + response);
-          router.push("/login");
+          this.$toast.success(
+            `User ${this.form.Users_Name} Was successfully added`
+          );
+          //router.push("/admin");
+          console.log(response);
+          this.$nextTick(() => {
+            this.$bvModal.hide("add-user");
+          });
         })
         .catch(err => {
-          alert(err);
+          this.$toast.error(
+            `Either user already exisits or email is incorrect format: ${err}`
+          );
         });
     },
     onReset(event) {
