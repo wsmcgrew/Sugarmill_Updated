@@ -10,6 +10,7 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   // Save growers to Database
+  console.log(req.body)
   growers.create({
     Users_Name: req.body.Users_Name,
     EmailAddress: req.body.EmailAddress,

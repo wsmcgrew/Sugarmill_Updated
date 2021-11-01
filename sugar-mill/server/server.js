@@ -4,6 +4,7 @@ const cors = require("cors");
 const models = require("./app/models");
 const db = require("./app/models");
 const Role = db.role;
+require("dotenv").config();
 
 const app = express();
 
@@ -21,16 +22,10 @@ app.use(express.urlencoded({ extended: true }));
 
 db.sequelize.sync().then(function() {
   console.log('Nice! Database looks fine')
-  //initial();
+  initial();
 }).catch(function(err) {
   console.log(err, "Something went wrong with the Database Update!")
 });
-// simple route
-app.get("/", (req, res) => {
-  console.log("hit default route")
-  res.json({ message: "Welcome to the thunderdome bitch." });
-});
-
 function initial() {
   Role.create({
     id: 1,
@@ -58,7 +53,7 @@ require('./app/routes/user.routes')(app);
 
 
 // set port, listen for requests
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.NODE_LOCAL_PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
