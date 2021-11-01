@@ -8,6 +8,6 @@ RUN npm install -g http-server
 # make the 'app' folder the current working directory
 WORKDIR /app
 
-EXPOSE 8081
+EXPOSE 8080
 
 CMD ./startup.sh

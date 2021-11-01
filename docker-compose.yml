@@ -2,7 +2,6 @@ version: "3.8"
 
 ## DEFINE SERVICES
 services:
-  ## Currently working
   ## FRONTEND
   web:
     container_name: WEB
@@ -32,7 +31,24 @@ services:
       - 1433:1433
     volumes: 
       - SQL_Data:/var/opt/mssql/data
-    
+
+  ## BACKEND API
+  api:
+    container_name: API
+    image: sugarmill/sugarmill-api:dev
+    build:
+      context: ./sugar-mill/server
+      target: Development
+    ports:
+      - "5001:5001"
+    environment:
+      - DB_HOST=localhost
+      - DB_USER=sa
+      - DB_PASSWORD=MyDatabasePassword123
+      - DB_NAME=Cane_Loads
+    volumes:
+      - ./sugar-mill/server:/app
+
 ## DEFINE VOLUMES
 volumes: 
   SQL_Data:

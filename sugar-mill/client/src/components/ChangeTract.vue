@@ -108,8 +108,11 @@ export default {
         this.$nextTick(() => {
           this.$bvModal.hide("move-land-tract");
         });
+        this.$toast.success("Tract moved successfully");
       } catch {
-        console.log("Error moving tract");
+        this.$toast.success(
+          "Unable to remove tract, please contact administrator"
+        );
       }
     },
     async getTractsList() {
