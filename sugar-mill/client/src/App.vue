@@ -1,43 +1,77 @@
 <template>
-  <div>
-    <!-- mobile menu -->
-    <mobile-menu :items="menuItems"></mobile-menu>
-
-    <!-- site wrapper -->
-    <div class="wrapper">
-      <!-- Sidebar -->
-      <side-menu :items="menuItems"></side-menu>
-
-      <!-- Page Content -->
-      <div class="container-fluid">
-        <top-menu></top-menu>
-        <div class="row">
-          <div class="col">
-            <router-view />
-          </div>
-        </div>
+  <div id="app">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <a href class="navbar-brand" @click.prevent>Sugar Mills</a>
+      <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <router-link to="/" class="nav-link">
+            <font-awesome-icon icon="home" />Home
+          </router-link>
+        </li>
+        <li v-if="showAdminBoard" class="nav-item">
+          <router-link to="/admin" class="nav-link">Admin</router-link>
+        </li>
+        <li v-if="showModeratorBoard" class="nav-item">
+          <router-link to="/mod" class="nav-link">Moderator Board</router-link>
+        </li>
       </div>
+
+      <div v-if="!currentUser" class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <router-link to="/login" class="nav-link">
+            <font-awesome-icon icon="sign-in-alt" />Login
+          </router-link>
+        </li>
+      </div>
+
+      <div v-if="currentUser" class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <router-link to="/profile" class="nav-link">
+            <font-awesome-icon icon="user" /> profile
+            {{ currentUser.username }}
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href @click.prevent="logOut">
+            <font-awesome-icon icon="sign-out-alt" />LogOut
+          </a>
+        </li>
+      </div>
+    </nav>
+
+    <div class="container">
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
-import MobileMenu from "./components/MobileMenu";
-import SideMenu from "./components/SideMenu";
-import TopMenu from "./components/TopMenu";
- 
 export default {
-  components: {
-    MobileMenu,
-    SideMenu,
-    TopMenu,
-  },
-
   computed: {
-    menuItems() {
-      return this.$store.state.menuItems;
+    currentUser() {
+      return this.$store.state.auth.user;
     },
+    showAdminBoard() {
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes("ROLE_ADMIN");
+      }
+
+      return false;
+    },
+    showModeratorBoard() {
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes("ROLE_MODERATOR");
+      }
+
+      return false;
+    }
   },
+  methods: {
+    logOut() {
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/");
+    }
+  }
 };
 </script>
 

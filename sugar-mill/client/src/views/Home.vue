@@ -4,8 +4,11 @@
       <div class="card-body">
         <strong class="card-title">
           <b-icon-person-circle class="mr-2"></b-icon-person-circle>
-          <!--//crude, implied all items of array is same names 
-          Grower Name: <h1>{{ millList[0].GrowerName }}</h1> CompanyName: <h1>{{ millList[0].CompanyName }} </h1>-->
+          <!--//crude, implied all items of array is same names -->
+          Grower Name:
+          <h1>{{ user.Users_Name }}</h1>
+          Id:
+          <h1>{{ user.id }}</h1>
         </strong>
         <div class="row">
           <b-col>
@@ -43,6 +46,8 @@
 
 <script>
 import ChangeTract from "../components/ChangeTract.vue";
+//import router from "../router/index";
+//import axios from "axios";
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -55,7 +60,7 @@ export default {
       newTractName: "",
       tractData: {},
       fields: [
-        { key: "Mill_Name", label: "Mill Name" },
+        { key: "Mill.Mill_Name", label: "Mill Name" }, // { key: "Mill" [{ key: "Mill_Name" }], label: "Mill Name" },
         { key: "GrossTime", label: "Gross Time" },
         { key: "Mill_Name", label: "Mill Name" },
         { key: "HaulerName", label: "Driver Name" },
@@ -68,10 +73,11 @@ export default {
     };
   },
   computed: {
-    ...mapState("home", ["millList"])
+    ...mapState("home", ["millList"]),
+    ...mapState("auth", ["user"])
   },
   mounted() {
-    this.getMillList();
+    this.getMillList(this.user.id);
   },
   methods: {
     ...mapActions("home", ["getMillList"]),

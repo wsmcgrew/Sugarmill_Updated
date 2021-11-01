@@ -1,15 +1,20 @@
-FROM node:10-alpine
+FROM node:14.15.4 as base
 
-WORKDIR /app
+FROM base as development
+
+# Create app directory
+WORKDIR /server
 
 COPY package*.json ./
+
 RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
+# Bundle app source
 COPY . .
- 
+
 EXPOSE 5001
 
-# CMD ./startup.sh-
-CMD [ "node", "api.js" ]
+# CMD [ "node", "server.js" ]
+CMD npm start

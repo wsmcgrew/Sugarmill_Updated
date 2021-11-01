@@ -12,8 +12,9 @@
       <form ref="form" @submit.stop.prevent="handleSubmit">
         <div class="row">
           <div class="col">
-            Mill Name: {{ tractData.Mill_Name }} CurrentTract:
-            {{ tractData.TractName }}
+            <strong> Mill Name: </strong>{{ tractData.Mill.Mill_Name }}
+            <strong> CurrentTract: </strong> {{ tractData.TractName }}
+            <strong> Id: </strong>{{ tractData.id }}
           </div>
         </div>
         <div class="col">
@@ -45,6 +46,7 @@ export default {
   data() {
     return {
       selectedTract: {},
+      selectedTractObj: [{ tractId: "TractId" }, { tractName: "TractName" }],
       tractObj: [
         { name: "id" },
         { name: "MillId" },
@@ -82,19 +84,31 @@ export default {
       this.handleSubmit();
     },
     async handleSubmit() {
+      //this.setTractIds();
+      this.selectedTractObj.tractName = this.selectedTract;
+      this.selectedTractObj.tractId = this.tractsList.find(
+        tr => (this.selectedTract = tr.TractName)
+      );
+      console.log(this.selectedTractObj.tractId.TractId);
+      console.log(this.selectedTractObj.tractName);
+
+      let body = {
+        lastUpdatedBy: "dbo",
+        TractId: this.selectedTractObj.tractId.TractId,
+        TractName: this.selectedTractObj.tractName,
+        isAltered: 1
+      };
+
       try {
         await axios.put(
-          "http://localhost:5001/Tracts" +
-            this.selectedTract +
-            "&LastUpdatedBy=jbwentworth" +
-            "&IsAltered=1"
+          "http://localhost:5001/api/cane_loads/update/" + this.tractData.id,
+          body
         );
 
         this.$nextTick(() => {
           this.$bvModal.hide("move-land-tract");
         });
       } catch {
-        console.log(this.selectedTract);
         console.log("Error moving tract");
       }
     },

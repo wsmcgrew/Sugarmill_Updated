@@ -21,8 +21,8 @@ insert into Growers (EmailAddress, password, Users_Name, CompanyName) VALUES ('N
 
 -- house keeping
 ALTER TABLE Mills DROP COLUMN MillId
-ALTER TABLE Mills ADD MillId INT UNIQUE IDENTITY(1,1) not NULL
-ALTER TABLE Mills ADD CONSTRAINT mill_pk PRIMARY KEY (MillId)
+ALTER TABLE Mills ADD id INT UNIQUE IDENTITY(1,1) not NULL
+ALTER TABLE Mills ADD CONSTRAINT mill_pk PRIMARY KEY (id)
 
 insert into Mills (Mill_Name) VALUES ('Sugar sugar =');
 insert into Mills (Mill_Name) VALUES ( 'Teabag suagr ');
@@ -45,9 +45,7 @@ insert into Grower_Mill(MillId) VALUES (5)
 alter table dbo.Cane_Loads ADD IsAltered BIT DEFAULT 'FALSE';
 ALTER TABLE dbo.Cane_Loads ADD LastUpdatedBy VARCHAR(50) NULL;
 
-ALTER TABLE Cane_Loads drop COLUMN UniqueId
-ALTER TABLE Cane_Loads ADD UniqueId INT IDENTITY(1,1) not NULL
-alter table Cane_Loads add CONSTRAINT UniqueId_pk PRIMARY KEY (UniqueId)
+alter table Cane_Loads add CONSTRAINT LoadId_pk PRIMARY KEY (id)
 
 -- add a bit flag for altered. UserId (last updated by) [useraccount/unique id] 
 INSERT INTO Cane_Loads (MillId, MillCR, GrowerId, GrowerName, TractId, TractName, HaulerId, HaulerName, TruckId, TrailerId, GrossWt, TareWt, NetWt, GrossTime, TareTime, OverWeight)
@@ -84,25 +82,31 @@ VALUEs (1, 'MackTruck', 'OleJenkinsPlace');
 insert into Tracts (MillId, TractId, TractName)
 VALUEs (3, 'MackTruck', 'Jamestown');
 insert into Tracts (MillId, TractId, TractName)
-VALUEs (2, 'MackTruck', 'CharlieKelly');
+VALUEs (2, 'someting', 'CharlieKelly');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (3, 'other', 'Morgan City');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (4, 'than', 'Houma');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (5, 'the', 'by the tree');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (1, 'shit', 'OleJenkinsPlace');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (3, 'aye', 'Jamestown');
+insert into Tracts (MillId, TractId, TractName)
+VALUEs (2, 'said', 'CharlieKelly');
+
+alter TABLE Cane_Loads
+add CONSTRAINT fk_millid FOREIGN KEY (MillId) REFERENCES Mills (id)
 
 
-select * from Cane_Loads
+select * from Cane_Loads where id = 5
 select * from Growers
 select * from Grower_Mill
 select * from Mills
 select * from Tracts
 
-select * from Cane_Loads where id = 15
+ALTER DATABASE [Cane_Loads] SET OFFLINE WITH ROLLBACK AFTER 25 SECONDS
+GO
 
-update Cane_Loads
-set IsAltered = 1, LastUpdatedBy = 'dbo', TractId = 'MackTruck', TractName = 'Houma'
-where id = 11
-
-update Cane_Loads
-set IsAltered = 0, LastUpdatedBy = null, TractId = 'mackie', TractName = 'FuknBich'
-            where id = 12
-
-update Cane_Loads
-            set IsAltered = 0, LastUpdatedBy = null, TractId = 'tractie', TractName = 'houma'
-            where id = 15
+DROP DATABASE Cane_Loads [;]
