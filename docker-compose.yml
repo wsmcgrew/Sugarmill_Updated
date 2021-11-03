@@ -14,7 +14,7 @@ services:
     expose: 
       - "8080"  
     volumes:
-      - ./sugar-mill/client:/app
+      - ./sugar-mill/client:/app  
 
    ## DATABASE
   database:
@@ -35,19 +35,21 @@ services:
   ## BACKEND API
   api:
     container_name: API
-    image: sugarmill/sugarmill-api:dev
-    build:
-      context: ./sugar-mill/server
-      target: Development
+    depends_on:
+      - database
+    build: ./sugar-mill/server
+    restart: unless-stopped
+    env_file: ./.env
     ports:
-      - "5001:5001"
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     environment:
-      - DB_HOST=localhost
-      - DB_USER=sa
-      - DB_PASSWORD=MyDatabasePassword123
-      - DB_NAME=Cane_Loads
-    volumes:
-      - ./sugar-mill/server:/app
+      - DB_HOST=database
+      - DB_USER=$MSSQL_USER
+      - DB_PASSWORD=$MSSQL_ROOT_PASSWORD
+      - DB_NAME=$MSSQL_DATABASE
+      - DB_PORT=$MSSQL_DOCKER_PORT
+    stdin_open: true
+    tty: true
 
 ## DEFINE VOLUMES
 volumes: 

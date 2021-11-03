@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 db.sequelize.sync().then(function() {
   console.log('Nice! Database looks fine')
-  initial();
+  //initial();
 }).catch(function(err) {
   console.log(err, "Something went wrong with the Database Update!")
 });
