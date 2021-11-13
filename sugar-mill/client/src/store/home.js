@@ -39,7 +39,7 @@ export default {
     getTracts({ commit }) {
       return new Promise((resolve, reject) => {
         axios
-          .get("http://localhost:5001/api/tracts")
+          .get("http://localhost:5001/api/tracts", { headers: authHeader() })
           .then(response => {
             resolve(commit("SAVE_TRACTS", response.data.data));
           })
@@ -49,7 +49,6 @@ export default {
       });
     },
     getUsers({ commit }) {
-      console.log( authHeader());
       return new Promise((resolve, reject) => {
         axios
           .get("http://localhost:5001/api/growers/", { headers: authHeader() })

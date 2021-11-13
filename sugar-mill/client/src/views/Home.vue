@@ -74,7 +74,10 @@ export default {
   },
   computed: {
     ...mapState("home", ["millList"]),
-    ...mapState("auth", ["user"])
+    ...mapState("auth", ["user"]),
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    }
   },
   mounted() {
     this.getMillList(this.user.id);

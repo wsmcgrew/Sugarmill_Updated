@@ -1,10 +1,14 @@
+const { authJwt } = require("../middleware");
+
 module.exports = app => {
     const tracts = require("../controllers/tracts.controller");
   
     var router = require("express").Router();
 
     // Retrieve all growers
-    router.get("/", tracts.findAll);
+    router.get("/",
+      [authJwt.verifyToken],
+      tracts.findAll);
   
     // Retrieve all published Tutorials
     router.get("/published", tracts.findAllPublished);

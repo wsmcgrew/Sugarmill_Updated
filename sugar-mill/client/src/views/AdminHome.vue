@@ -20,8 +20,26 @@
                 head-variant="dark"
                 hover
                 :items="allgrowers"
-                :field="field"
+                :fields="fields"
               >
+                <template #cell(view)="row">
+                  <b-button
+                    size="sm"
+                    @click="viewUser(row.item, row.index, $event.target)"
+                    class="mr-2"
+                    >View / Edit
+                  </b-button>
+                </template>
+                <template #cell(delete)="row">
+                  <b-button
+                    size="sm"
+                    @click="deleteUser(row.item, row.index, $event.target)"
+                    variant="danger"
+                    class="mr-1"
+                  >
+                    Delete User
+                  </b-button>
+                </template>
               </b-table>
             </b-col>
           </div>
@@ -42,28 +60,34 @@
     </div>
     <!-- end class card -->
     <add-user></add-user>
+    <edit-user :userData="userData"></edit-user>
+    <delete-user :userData="userData"></delete-user>
   </div>
 </template>
 
 <script>
 import AddUser from "../components/adduser.vue";
+import EditUser from "../components/edituser.vue";
+import DeleteUser from "../components/deleteuser.vue";
 import { mapActions, mapState } from "vuex";
 
 export default {
   Name: "Home",
   components: {
-    AddUser
+    AddUser,
+    EditUser,
+    DeleteUser
   },
   data() {
     return {
-      newTractName: "",
-      tractData: {},
-      field: [
+      userData: {},
+      fields: [
         { key: "EmailAddress", label: "Email Address" },
         { key: "Users_Name", label: "User Name" },
         { key: "CompanyName", label: "Company Name" },
         { key: "GrowerId", lable: "ID" },
-        { key: "Password", label: "Password" }
+        { key: "view", label: "Actions" },
+        { key: "delete", label: "Delete User" }
       ]
     };
   },
@@ -72,6 +96,9 @@ export default {
     ...mapState("auth", ["user"]),
     currentUser() {
       return this.$store.state.auth.user;
+    },
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
     },
     checkAdmin() {
       return this.currentUser.roles.includes("ROLE_ADMIN");
@@ -83,8 +110,19 @@ export default {
   methods: {
     ...mapActions("home", ["getUsers"]),
 
-    showModal(item) {
-      this.userdata = item;
+    viewUser(item) {
+      this.userData = item;
+      this.editMode = true;
+      this.$bvModal.show("edit-user");
+    },
+    deleteUser(item) {
+      this.userData = item;
+      this.editMode = true;
+      this.$bvModal.show("delete-user");
+    },
+
+    showModal() {
+      this.modalTitle = "Add User";
       this.editMode = false;
       this.$bvModal.show("add-user");
     }

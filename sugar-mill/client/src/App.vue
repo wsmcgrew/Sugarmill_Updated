@@ -2,7 +2,7 @@
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <a href class="navbar-brand" @click.prevent>Sugar Mills</a>
-      <div class="navbar-nav mr-auto">
+      <div v-if="currentUser" class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/" class="nav-link">
             <font-awesome-icon icon="home" />Home
@@ -11,8 +11,10 @@
         <li v-if="showAdminBoard" class="nav-item">
           <router-link to="/admin" class="nav-link">Admin</router-link>
         </li>
-        <li v-if="showModeratorBoard" class="nav-item">
-          <router-link to="/mod" class="nav-link">Moderator Board</router-link>
+        <li v-if="showUserBoard" class="nav-item">
+          <router-link to="/home" class="nav-link">
+            <font-awesome-icon icon="home" />View loads
+          </router-link>
         </li>
       </div>
 
@@ -58,9 +60,9 @@ export default {
 
       return false;
     },
-    showModeratorBoard() {
+    showUserBoard() {
       if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes("ROLE_MODERATOR");
+        return this.currentUser.roles.includes("ROLE_USER");
       }
 
       return false;
@@ -70,7 +72,7 @@ export default {
     logOut() {
       this.$store.dispatch("auth/logout");
       this.$router.push("/");
-      this.toast.success("Logged out successfully");
+      this.$toast.success("Logged out successfully");
     }
   }
 };

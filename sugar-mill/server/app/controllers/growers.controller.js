@@ -1,8 +1,8 @@
+const { growers } = require("../models");
 const db = require("../models");
 const Growers = db.growers;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Tutorial
 exports.create = (req, res) => {
 
   };
@@ -11,7 +11,7 @@ exports.create = (req, res) => {
 exports.findAllGrowers   = (req, res) => {
     console.log(" Within the controller");
   
-    Growers.findAll({ attributes: ["Users_Name", "GrowerId", "EmailAddress", "Password"] })
+    Growers.findAll({ attributes: ["Users_Name", "GrowerId", "EmailAddress", "Password", "CompanyName"] })
     .then(folks => {
       res.status(200).json({
         data: folks
@@ -36,7 +36,7 @@ exports.findOne = (req, res) => {
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving Tutorial with id=" + id
+          message: "Error retrieving Grower with id=" + id
         });
       });
   };
@@ -45,23 +45,24 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
   
-    Tutorial.update(req.body, {
-      where: { id: id }
+    Growers.update(req.body, {
+      where: { GrowerId: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Tutorial was updated successfully."
+            message: "Grower was updated successfully."
           });
         } else {
           res.send({
-            message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+            message: `Cannot update Grower with id=${id}. Maybe Grower was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
+        console.log(num);
         res.status(500).send({
-          message: "Error updating Tutorial with id=" + id
+          message: "Error updating Grower with id=" + id
         });
       });
   };
@@ -69,45 +70,26 @@ exports.update = (req, res) => {
 // Delete a grower with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
+    console.log(req.params.id)
   
-    Tutorial.destroy({
-      where: { id: id }
+    Growers.destroy({
+      where: { GrowerId: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Tutorial was deleted successfully!"
+            message: "Grower was deleted successfully!"
           });
         } else {
+          console.log("What is the number" + num)
           res.send({
-            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+            message: `Cannot delete Grower with id=${id}. Maybe Grower was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Tutorial with id=" + id
+          message: "Could not delete grower with id = " + id
         });
       });
   };
-// Delete all Growers from the database.
-exports.deleteAll = (req, res) => {
-    Tutorial.destroy({
-      where: {},
-      truncate: false
-    })
-      .then(nums => {
-        res.send({ message: `${nums} Tutorials were deleted successfully!` });
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while removing all tutorials."
-        });
-      });
-  };
-
-// Find all published Growers
-exports.findAllPublished = (req, res) => {
-  
-};

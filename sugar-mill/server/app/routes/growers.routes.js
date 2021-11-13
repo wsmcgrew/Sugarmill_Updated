@@ -10,11 +10,6 @@ module.exports = app => {
       [authJwt.verifyToken, authJwt.isAdmin],
       growers.findAllGrowers);
   
-    // Retrieve all published Tutorials
-    router.get("/published",
-    [authJwt.verifyToken],
-    growers.findAllPublished);
-  
     // Retrieve a single Tutorial with id
     router.get("/:id", growers.findOne);
   
@@ -22,10 +17,10 @@ module.exports = app => {
     router.put("/:id", growers.update);
   
     // Delete a Tutorial with id
-    router.delete("/:id", growers.delete);
+    router.delete("/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+     growers.delete);
   
-    // Create a new Tutorial
-    router.delete("/", growers.deleteAll);
   
     app.use('/api/growers', router);
   };

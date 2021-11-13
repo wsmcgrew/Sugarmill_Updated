@@ -24,6 +24,12 @@ export default {
     logout({ commit }) {
       AuthService.logout();
       commit("logout");
+    },
+    register({ commit }, user) {
+      return AuthService.register(user).then(response => {
+        commit("registerSuccess");
+        return Promise.resolve(response.data);
+      });
     }
   },
   mutations: {
@@ -44,6 +50,12 @@ export default {
     },
     registerFailure(state) {
       state.status.loggedIn = false;
+    },
+    deleteUser(state) {
+      state.status.loggedIn = false;
+    },
+    updatedSuccess(state) {
+      state.state.loggedIn = false;
     }
   }
 };

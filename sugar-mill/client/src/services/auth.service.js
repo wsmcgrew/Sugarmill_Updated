@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from "../services/auth-header";
 
 const API_URL = "http://localhost:5001/api/auth/";
 
@@ -23,10 +24,14 @@ class AuthService {
   }
 
   register(user) {
-    return axios.post(API_URL + "signup", {
-      username: user.username,
-      email: user.email,
-      password: user.password
+    return axios.post(API_URL + "signup", user, {
+      headers: authHeader()
+    });
+  }
+
+  delete(id) {
+    return axios.delete("http://localhost:5001/api/growers/" + id, {
+      headers: authHeader()
     });
   }
 }

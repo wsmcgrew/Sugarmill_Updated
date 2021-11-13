@@ -101,7 +101,7 @@ export default {
         if (this.form.EmailAddress && this.form.Password) {
           this.$store.dispatch("auth/login", this.form).then(
             () => {
-              this.$router.push("/home");
+              this.$router.push("/");
             },
             error => {
               this.loading = false;

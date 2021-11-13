@@ -1,14 +1,17 @@
 <template>
   <div>
     <b-modal
-      id="add-user"
+      id="edit-user"
       size="lg"
-      title="Add User"
+      title="Edit User"
       @ok="handleOk"
       @show="resetModal"
       @hidden="resetModal"
       ok-title="Save"
     >
+    <strong>Current User: </strong>{{ userData.Users_Name }}
+    <strong>Current User Role: </strong> {{this.$store.state.auth.user.roles}}
+      
       <b-form ref="form" @submit.stop.prevent="handleSubmit">
         <b-form-group
           id="input-group-1"
@@ -18,18 +21,9 @@
         >
           <b-form-input
             id="input-1"
-            v-model="form.EmailAddress"
+            v-model="userData.EmailAddress"
             type="email"
             placeholder="sampleEmail@email.com"
-            required
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group id="input-group-2" label="Password:" label-for="input-2">
-          <b-form-input
-            id="input-2"
-            v-model="form.Password"
-            placeholder="password123"
             required
           ></b-form-input>
         </b-form-group>
@@ -37,7 +31,7 @@
         <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
           <b-form-input
             id="input-2"
-            v-model="form.Users_Name"
+            v-model="userData.Users_Name"
             placeholder="Joe Dirt"
             required
           ></b-form-input>
@@ -50,7 +44,7 @@
         >
           <b-form-input
             id="input-2"
-            v-model="form.CompanyName"
+            v-model="userData.CompanyName"
             placeholder="ole south growers?"
             required
           ></b-form-input>
@@ -59,7 +53,7 @@
         <b-form-group id="input-group-3" label="Roles:" label-for="input-3">
           <b-form-select
             id="input-3"
-            v-model="form.roles"
+            v-model="userData.roles"
             :options="roles"
             required
           ></b-form-select>
@@ -73,8 +67,6 @@
 export default {
   data() {
     return {
-      submitted: false,
-      successful: false,
       jsonForm: {},
       form: {
         EmailAddress: "",
@@ -87,9 +79,12 @@ export default {
       show: true
     };
   },
-  mounted() {
-    if (this.loggedIn) {
-      this.$router.push("/profile");
+  props: {
+    userData: {
+      type: Object,
+      defaultStatus: function() {
+        return {};
+      }
     }
   },
   methods: {
@@ -105,23 +100,24 @@ export default {
       this.handleSubmit();
     },
     async handleSubmit() {
+      this.$toast.success("you getting the shit done!");
       let body = {
-        EmailAddress: this.form.EmailAddress,
-        Users_Name: this.form.Users_Name,
-        Password: this.form.Password,
-        CompanyName: this.form.CompanyName,
+        EmailAddress: this.userData.EmailAddress,
+        Users_Name: this.userData.Users_Name,
+        CompanyName: this.userData.CompanyName,
         roles: [this.form.roles]
       };
-      console.log(body);
       this.message = "";
       this.submitted = true;
       this.$validator.validate().then(isValid => {
         if (isValid) {
-          this.$store.dispatch("auth/register", body).then(
+          this.$store.dispatch("admin/update", body).then(
             data => {
               this.message = data.message;
               this.successful = true;
-              this.$toast.success("Successfully added user");
+              this.$toast.success(
+                `User ${this.userData.Users_Name} has been altered`
+              );
             },
             error => {
               this.message =
@@ -134,7 +130,7 @@ export default {
         }
       });
       this.$nextTick(() => {
-        this.$bvModal.hide("add-user");
+        this.$bvModal.hide("edit-user");
       });
     },
     onReset(event) {
