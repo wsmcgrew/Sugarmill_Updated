@@ -21,6 +21,7 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.6.5",
-    "tedious": "^13.1.0"
+    "tedious": "^13.1.0",
+    "validator": "^13.7.0"
   }
 }
