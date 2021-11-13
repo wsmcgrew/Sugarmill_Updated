@@ -7,7 +7,6 @@ import Vuelidate from "vuelidate";
 import Toast, { POSITION } from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
-
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faRibbon } from "@fortawesome/free-solid-svg-icons";

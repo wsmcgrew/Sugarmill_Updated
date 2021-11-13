@@ -9,9 +9,10 @@
       @hidden="resetModal"
       ok-title="Save"
     >
-    <strong>Current User: </strong>{{ userData.Users_Name }}
-    <strong>Current User Role: </strong> {{this.$store.state.auth.user.roles}}
-      
+      <strong>Current User: </strong>{{ userData.Users_Name }}
+      <strong>Current User Role: </strong>
+      {{ this.$store.state.auth.user.roles }}
+
       <b-form ref="form" @submit.stop.prevent="handleSubmit">
         <b-form-group
           id="input-group-1"
