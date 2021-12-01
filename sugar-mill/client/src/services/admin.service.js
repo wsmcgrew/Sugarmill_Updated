@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "../services/auth-header";
 
-const API_URL = "http://localhost:5001/api/growers/";
+const API_URL = process.env.VUE_APP_NODE_API + "/growers/";
 
 class AdminService {
   delete(id) {

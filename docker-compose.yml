@@ -35,6 +35,7 @@ services:
   ## BACKEND API
   api:
     container_name: API
+    image: sugarmill/sugar-mill-api:dev
     depends_on:
       - database
     build: ./sugar-mill/server

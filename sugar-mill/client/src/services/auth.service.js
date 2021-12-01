@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "../services/auth-header";
 
-const API_URL = "http://localhost:5001/api/auth/";
+const API_URL = process.env.VUE_APP_NODE_API + "/auth/";
 
 class AuthService {
   login(user) {
@@ -30,7 +30,7 @@ class AuthService {
   }
 
   delete(id) {
-    return axios.delete("http://localhost:5001/api/growers/" + id, {
+    return axios.delete(process.env.VUE_APP_NODE_API + "/api/growers/" + id, {
       headers: authHeader()
     });
   }
