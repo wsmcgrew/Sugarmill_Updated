@@ -12,9 +12,7 @@
       <form ref="form" @submit.stop.prevent="handleSubmit">
         <div class="row">
           <div class="col">
-            <strong> Mill Name: </strong>{{ tractData.Mill.Mill_Name }}
             <strong> CurrentTract: </strong> {{ tractData.TractName }}
-            <strong> Id: </strong>{{ tractData.id }}
           </div>
         </div>
         <div class="col">
@@ -64,7 +62,10 @@ export default {
     }
   },
   computed: {
-    ...mapState("home", ["tractsList"])
+    ...mapState("home", ["tractsList"]),
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
   },
   mounted() {
     this.getTractsList();
@@ -83,6 +84,9 @@ export default {
       bvModalEvt.preventDefault();
       this.handleSubmit();
     },
+    update() {
+      this.$forceUpdate();
+    },
     async handleSubmit() {
       //this.setTractIds();
       this.selectedTractObj.tractName = this.selectedTract;
@@ -93,10 +97,11 @@ export default {
       console.log(this.selectedTractObj.tractName);
 
       let body = {
-        lastUpdatedBy: "dbo",
+        //MillId: this.selectedTractObj.
+        LastUpdatedBy: this.currentUser.Users_Name,
         TractId: this.selectedTractObj.tractId.TractId,
         TractName: this.selectedTractObj.tractName,
-        isAltered: 1
+        IsAltered: 1
       };
 
       try {
@@ -107,10 +112,11 @@ export default {
 
         this.$nextTick(() => {
           this.$bvModal.hide("move-land-tract");
+          this.update();
         });
         this.$toast.success("Tract moved successfully");
       } catch {
-        this.$toast.success(
+        this.$toast.error(
           "Unable to remove tract, please contact administrator"
         );
       }

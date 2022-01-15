@@ -8,7 +8,7 @@
       @show="resetModal"
       @hidden="resetModal"
       ok-title="Save"
-    >
+    > {{ userData }}
       <strong>Current User: </strong>{{ userData.Users_Name }}
       <strong>Current User Role: </strong>
       {{ this.$store.state.auth.user.roles }}
@@ -100,9 +100,13 @@ export default {
       bvModalEvt.preventDefault();
       this.handleSubmit();
     },
+    update() {
+      this.$forceUpdate();
+    },
     async handleSubmit() {
-      this.$toast.success("you getting the shit done!");
+
       let body = {
+        GrowerId: this.userData.GrowerId,
         EmailAddress: this.userData.EmailAddress,
         Users_Name: this.userData.Users_Name,
         CompanyName: this.userData.CompanyName,
@@ -132,6 +136,7 @@ export default {
       });
       this.$nextTick(() => {
         this.$bvModal.hide("edit-user");
+        this.update();
       });
     },
     onReset(event) {

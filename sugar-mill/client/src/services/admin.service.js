@@ -11,6 +11,7 @@ class AdminService {
   }
 
   update(user) {
+    console.log(user)
     return axios.put(API_URL + user.GrowerId, user, {
       headers: authHeader()
     });

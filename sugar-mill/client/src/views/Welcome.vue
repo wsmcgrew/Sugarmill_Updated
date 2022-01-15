@@ -3,15 +3,14 @@
     <b-jumbotron
       bg-variant="white"
       header="Welcome"
-      lead="Some other info here"
+      lead="General usage guide."
     >
       <template #header>
         <font-awesome-icon icon="ribbon" class="mr-2" /> Welcome to Sugar Mill
       </template>
 
       <p>
-        The intended purpose of this application is to give the growers, or users, the ability to change
-        Tracts of lands for a sugar cane load.
+        The purpose of this application is to make tracking sugar cane loads easier.
       </p>
       <h4>
         General usage guide
@@ -22,8 +21,11 @@
         <ul>
           <li>User name</li>
           <li>Company Name</li>
-          <li>Table of current loads</li>
-          <li>Process button (used to change land tracts)</li>
+          <li>Table of Sugar mills that you (the grower) currently have load(s)</li>
+          <li>Dropdown arrow to view loads</li>
+        <ul>
+          <li>This dropdown will have a <strong>Process</strong> button </li>
+        </ul>
         </ul>
       </p>
       <p>
@@ -37,7 +39,7 @@
         Point of contact
       </h4>
       <p>
-        To request an account please contact <strong>XYZ@xyz.com</strong> please provide
+        To request an account contact <strong>XYZ@xyz.com</strong> please provide
         <ul>
           <li>Email Address</li>
           <li>Full Name</li>

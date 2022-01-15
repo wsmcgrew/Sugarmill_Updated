@@ -23,15 +23,49 @@
               :items="millList"
               :fields="fields"
             >
-              <template #cell(actions)="row">
+              <!--
+
+              -->
+              <template #cell(show_details)="row">
                 <b-button
                   size="sm"
-                  @click="showTract(row.item, row.index, $event.target)"
-                  variant="primary"
+                  variant="clear"
+                  @click="row.toggleDetails"
+                  class="mr-2"
                 >
-                  <b-icon-plus></b-icon-plus>
-                  Process
+                  <b-icon-arrow-bar-down
+                    v-if="!row.detailsShowing"
+                  ></b-icon-arrow-bar-down>
+                  <b-icon-arrow-bar-up
+                    v-if="row.detailsShowing"
+                  ></b-icon-arrow-bar-up>
                 </b-button>
+              </template>
+              <template #row-details="row" style="background-color: orange">
+                <b-col>
+                  <b-table
+                    striped
+                    small
+                    id="cane-loads"
+                    stacked="lg"
+                    responsive
+                    head-variant="dark"
+                    hover
+                    :items="row.item.Cane_Loads"
+                    :fields="rowDetail"
+                  >
+                    <template #cell(actions)="row">
+                      <b-button
+                        size="sm"
+                        @click="showTract(row.item, row.index, $event.target)"
+                        variant="primary"
+                      >
+                        <b-icon-plus></b-icon-plus>
+                        Process
+                      </b-button>
+                    </template>
+                  </b-table>
+                </b-col>
               </template>
             </b-table>
           </b-col>
@@ -46,8 +80,6 @@
 
 <script>
 import ChangeTract from "../components/ChangeTract.vue";
-//import router from "../router/index";
-//import axios from "axios";
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -59,16 +91,19 @@ export default {
     return {
       newTractName: "",
       tractData: {},
+      rowDetail: [
+        { key: "TractId", label: "Tract Id" },
+        { key: "TractName", label: "Tract Name" },
+        { key: "GrossWt", label: "Gross Wt" },
+        { key: "LastUpdatedBy", label: "Last Updated" },
+        { key: "actions", label: "Change Tract" }
+      ],
       fields: [
-        { key: "Mill.Mill_Name", label: "Mill Name" }, // { key: "Mill" [{ key: "Mill_Name" }], label: "Mill Name" },
-        { key: "GrossTime", label: "Gross Time" },
         { key: "Mill_Name", label: "Mill Name" },
-        { key: "HaulerName", label: "Driver Name" },
-        { key: "NetWt", label: "Total weight" },
-        { key: "OverWeight" },
-        { key: "GrossWt", lable: "Load weight" },
-        { key: "TractName", label: "Current Tract" },
-        { key: "actions", label: "Move Tract" }
+        { key: "id", label: "Mill Id" },
+        //{ key: "actions", label: "Move Tract" },
+        { key: "show_details", label: "" },
+        { key: "show_details", label: "" }
       ]
     };
   },
@@ -85,7 +120,11 @@ export default {
   methods: {
     ...mapActions("home", ["getMillList"]),
 
+    extractDetails(row) {
+      return row.Cane_Loads;
+    },
     showTract(item) {
+      console.log(item);
       this.tractData = item;
       this.editMode = false;
       this.$bvModal.show("move-land-tract");

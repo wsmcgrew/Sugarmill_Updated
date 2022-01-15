@@ -25,7 +25,7 @@ export default {
     getMillList({ commit }, growerId) {
       return new Promise((resolve, reject) => {
         axios
-          .get(process.env.VUE_APP_NODE_API + "/cane_loads/" + growerId, {
+          .get(process.env.VUE_APP_NODE_API + "/mills/" + growerId, {
             headers: authHeader()
           })
           .then(response => {

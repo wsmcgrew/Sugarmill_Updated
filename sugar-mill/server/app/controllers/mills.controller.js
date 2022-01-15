@@ -1,5 +1,6 @@
 const db = require("../models");
 const mills = db.mills;
+const cane_loads = db.cane_loads
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -21,7 +22,23 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
-  
+  console.log("Req.body=" + req.body);
+
+  let gid = req.params.id
+  let includes = {
+    model: cane_loads,
+    where: {
+      GrowerId: gid
+    }
+  };
+  console.log("Current ID being set to API" + gid);
+
+  mills.findAll({ include: includes })
+  .then(folks => {
+    res.status(200).json({
+      data: folks
+    })
+  });
 };
 
 // Update a Tutorial by the id in the request

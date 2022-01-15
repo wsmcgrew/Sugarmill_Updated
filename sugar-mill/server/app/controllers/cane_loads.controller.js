@@ -4,7 +4,7 @@ const cane_loads = db.cane_loads;
 const mills = db.mills;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Tutorial
+// Create and Save a new load
 exports.create = (req, res) => {
   
 };
@@ -21,7 +21,7 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Tutorial with an id
+// Find a single load with an id
 exports.findOneGrowersLoad = (req, res) => {
   console.log("Req.body=" + req.body);
 
@@ -36,7 +36,7 @@ exports.findOneGrowersLoad = (req, res) => {
   });
 };
 
-// Update a Tutorial by the id in the request
+// Update a load by the id in the request
 exports.updateTracts = (req, res) => {
   const id = req.params.id;
   
@@ -46,7 +46,7 @@ exports.updateTracts = (req, res) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was updated successfully."
+          message: "load was updated successfully."
         });
       } else {
         res.send({
@@ -61,17 +61,17 @@ exports.updateTracts = (req, res) => {
     });
 };
 
-// Delete a Tutorial with the specified id in the request
+// Delete a load with the specified id in the request
 exports.delete = (req, res) => {
   
 };
 
-// Delete all Tutorials from the database.
+// Delete all loads from the database.
 exports.deleteAll = (req, res) => {
   
 };
 
-// Find all published Tutorials
+// Find all published loads
 exports.findAllPublished = (req, res) => {
   
 };
